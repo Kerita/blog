@@ -6,14 +6,13 @@ module.exports = function (app) {
     res.render('index', {
       title: '主页',
       user: req.session.user ? req.session.user : null,
-      success: req.flash('success').toString()?req.flash('success').toString():'',
-      error: req.flash('error').toString()?req.flash('error').toString():''
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
     });
   });
   app.get('/test', function (req, res) {
     res.send(req.query.name);
   });
-
   app.get('/reg', function (req, res) {
     res.render('reg', {
       title: '注册',
@@ -81,7 +80,7 @@ module.exports = function (app) {
         return res.redirect('/login');
       }
       if (user.password !== password) {
-        res.flash('error', '密码错误！');
+        req.flash('error', '密码错误！');
         return res.redirect('./login');
       }
 
